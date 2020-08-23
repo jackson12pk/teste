@@ -65,6 +65,9 @@ $u = new Usuario();
 
 <div class="container">
 	<div class="form-content-recupera">
+		<div class="img-content">
+				<figure><img src="assets/img/forgot.svg" alt="" class="img-fluid"></figure>
+			</div>
 		<form method="POST">	
 			<div class="form-group">
 				<label for="">E-mail:</label>
