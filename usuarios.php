@@ -60,10 +60,7 @@ Class Usuario{
 			$_SESSION['id'] = $dado['id'];
 			return true; //acesso realizado com sucesso.
 		}
-		else
-		{
-
-		}
+		
 
 		
 	}
@@ -79,22 +76,33 @@ Class Usuario{
 		$sql->execute();
 		if($sql->rowCount() > 0)
 		{
-		//.
 			$dado = $sql->fetch();
 			session_start();
 			$_SESSION['email'] = $dado['email'];
+
 			return true; //E-mail encontrado.
 		}
-		else
-		{
-
-		}
-
 	}
 
+	public function alteraSenha($email, $senha)
+	{
+		global $pdo;
+		global $msgErro;
+
+		//verifica se o e-mail está cadastrado.
+		$sql = $pdo->prepare("UPDATE usuarios SET senha = :s WHERE email = :e");
+		$sql->bindValue(":e", $email);
+		$sql->bindValue(":s", md5($senha));
+		$sql->execute();
+		if($sql->rowCount() > 0)
+		{
+				return true; //E-mail encontrado.
+			}
+		}
 
 
 
 
-}
-?>
+
+	}
+	?>

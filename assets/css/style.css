@@ -60,6 +60,9 @@ h1{
 	color: #ccc;
 	font-weight: 400;
 }
+.form-control:disabled, .form-control[readonly]{
+	background-color: rgba(0,0,0,0.3);
+}
 .img-content{
 	width: 150px;
 	margin: auto;
