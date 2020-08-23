@@ -46,18 +46,18 @@ $u = new Usuario();
 			if(isset($_POST['login']))
 			{
 				$login = addslashes($_POST['login']);
-				$email = addslashes($_POST['email']);
 				$senha = addslashes($_POST['senha']);
+				$email = addslashes($_POST['email']);
 				$confsenha = addslashes($_POST['confsenha']);
 				//Verifica se os campos foram preenchidos
-				if(!empty($login) && !empty($email) && !empty($senha) && !empty($confsenha))
+				if(!empty($login) && !empty($senha) && !empty($email) && !empty($confsenha))
 				{
 					$u->conectar("teste","localhost","root","");
 					if($u->msgErro == "")//Se não houve erros.
 					{
 						if($senha === $confsenha)//Se a confirmação de senha for igual a senha.
 						{
-							if($u->cadastrar($login, $email, $senha))//Cadastra o usuário.
+							if($u->cadastrar($login, $senha, $email))//Cadastra o usuário.
 							{
 								echo '<script>alert("Cadastrado com sucesso!");window.location.href="index.php";</script>';
 							}

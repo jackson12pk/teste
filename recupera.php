@@ -36,7 +36,7 @@ $u = new Usuario();
 			{
 				if($u->alteraSenha($emailcod, $senha))
 				{
-					echo '<script>alert("Senha alterada com sucesso!");</script>';
+					echo '<script>alert("Senha alterada com sucesso!");window.location.href="index.php";</script>';
 				}
 				else
 				{
