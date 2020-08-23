@@ -68,6 +68,31 @@ Class Usuario{
 		
 	}
 
+	public function enviaEmail($email)
+	{
+		global $pdo;
+		global $msgErro;
+
+		//verifica se o e-mail está cadastrado.
+		$sql = $pdo->prepare("SELECT id, email FROM usuarios WHERE email = :e");
+		$sql->bindValue(":e", $email);
+		$sql->execute();
+		if($sql->rowCount() > 0)
+		{
+		//.
+			$dado = $sql->fetch();
+			session_start();
+			$_SESSION['email'] = $dado['email'];
+			return true; //E-mail encontrado.
+		}
+		else
+		{
+
+		}
+
+	}
+
+
 
 
 

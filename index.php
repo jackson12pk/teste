@@ -1,5 +1,6 @@
 <?php
-session_start();	
+require_once "usuarios.php";
+$u = new Usuario();	
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -21,7 +22,7 @@ session_start();
 				<figure><img src="assets/img/login.svg" alt="" class="img-fluid"></figure>
 			</div>
 
-			<form action="validaLogin.php" method="POST">	
+			<form method="POST">	
 				<div class="form-group">
 					<label for="">Login:</label>
 					<input type="text" name="login" placeholder="Digite seu login" class="form-control" required="" autofocus="">
@@ -32,25 +33,43 @@ session_start();
 				</div>
 				<input type="submit" value="Acessar" class="button-login">
 				<small>
-				<a class="recuperar float-left" href="cadastro.php">Cadastrar</a>
-				<a class="recuperar float-right" href="recuperarSenha.php">Esqueceu sua senha?</a>
+					<a class="recuperar float-left" href="cadastro.php">Cadastrar</a>
+					<a class="recuperar float-right" href="recuperaSenha.php">Esqueceu sua senha?</a>
 				</small>
 			</form>
-			<?php 
-			//MENSAGEM DE ERRO
-			if(isset($_SESSION['loginErro'])){
-				?>
-				<div class="text-center mensagem-form-login">
-					<?php 
-					echo $_SESSION['loginErro'];
-					unset($_SESSION['loginErro']);
-					?>
-				</div>
-				<?php
-			}
-			?>				
 		</div>
 	</div>
 
+	<?php 
+	if(isset($_POST['login']))
+	{
+		$login = addslashes($_POST['login']);
+		$senha = addslashes($_POST['senha']);
+
+		if(!empty($login) && !empty($senha))
+		{
+			$u->conectar("teste","localhost","root","");
+			if($u->msgErro == "")//Se não houve erros.
+			{
+				if($u->logar($login, $senha))
+				{
+					header("Location: principal.php");
+
+				}
+				else
+				{
+					echo '<script>alert("E-mail ou senha estão incorretos!");</script>';
+				}
+			}else{
+				echo '<script>alert("Erro: '.$u->msgErro.'");</script>';
+			}
+		}
+		else
+		{
+			echo '<script>alert("Preencha todos os campos!");</script>';
+
+		}
+	}
+	?>				
 </body>
 </html>
